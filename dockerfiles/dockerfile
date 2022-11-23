@@ -1,0 +1,25 @@
+FROM ros:melodic-ros-core-bionic
+
+RUN apt-get update
+RUN apt-get install git
+RUN mkdir -p catkin_ws/src
+WORKDIR /catkin_ws
+
+
+RUN apt-get install build-essential -y
+RUN catkin_make
+
+WORKDIR /catkin_ws/src
+
+RUN git clone https://github.com/KumarRobotics/vicon.git
+WORKDIR /catkin_ws
+
+RUN apt-get install libeigen3-dev
+RUN apt install libyaml-cpp-dev -y
+RUN apt-get install ros-melodic-tf2-ros -y
+RUN apt-get install ros-melodic-tf -y
+
+RUN catkin_make
+RUN source devel/setup.bash
+
+CMD /bin/bash
