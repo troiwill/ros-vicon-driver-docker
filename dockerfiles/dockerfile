@@ -1,5 +1,7 @@
 FROM ros:melodic-ros-core-bionic
 
+SHELL ["/bin/bash", "-c"]
+
 RUN apt-get update
 RUN apt-get install git -y
 RUN mkdir -p catkin_ws/src
@@ -21,6 +23,6 @@ RUN apt-get install ros-melodic-tf -y
 
 RUN . /opt/ros/melodic/setup.sh && \
     catkin_make
-RUN source devel/setup.bash
+RUN sed -i "s|129|78|g" vicon/vicon/launch/vicon.launch
 
 CMD /bin/bash
