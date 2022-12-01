@@ -1,8 +1,10 @@
 version: '3'
 services:
-  ros-vicon-driver:
+  vicon-driver:
+    build: ./
+    container_name: vicon-driver
     tty: true
-    image: ros-vicon-driver
+    image: vicon-driver
     network_mode: "host"
     environment:
       - ROS_HOSTNAME=docker-desktop
