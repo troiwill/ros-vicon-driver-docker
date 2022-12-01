@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ros-vicon-driver:
+    tty: true
+    image: ros-vicon-driver
+    network_mode: "host"
+    environment:
+      - ROS_HOSTNAME=docker-desktop
+      - ROS_MASTER_URI=http://docker-desktop:11311
