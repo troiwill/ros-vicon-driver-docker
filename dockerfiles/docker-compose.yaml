@@ -4,12 +4,13 @@ services:
     build:
       context: ./
       args:
-        # Change to Vicon server IP address
+        # Change to Vicon server IP address. The current value WILL NOT WORK.
         vicon_server_ip: 127.0.0.1
     container_name: vicon-driver-c
     tty: true
     image: vicon-driver
     network_mode: "host"
     environment:
-      ROS_HOSTNAME: docker-desktop
-      ROS_MASTER_URI: http://docker-desktop:11311
+      # Substitute "HOSTNAME" in both environment variable for the name of your computer.
+      ROS_HOSTNAME: HOSTNAME
+      ROS_MASTER_URI: http://HOSTNAME:11311
