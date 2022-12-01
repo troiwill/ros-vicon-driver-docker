@@ -2,6 +2,9 @@ FROM ros:melodic-ros-core-bionic
 
 SHELL ["/bin/bash", "-c"]
 
+# Declare build arguments.
+ARG vicon_server_ip
+
 # Install necessary packages.
 RUN apt-get update
 RUN apt-get -y install build-essential git libeigen3-dev libyaml-cpp-dev \
@@ -19,6 +22,6 @@ WORKDIR /home/root/catkin_ws
 
 # Run catkin make once more to build the new ROS packages.
 RUN . /opt/ros/melodic/setup.sh && catkin_make
-RUN sed -i "s|129|78|g" /home/root/catkin_ws/src/vicon/vicon/launch/vicon.launch
+RUN sed -i "s|192.168.129.11|$vicon_server_ip|g" /home/root/catkin_ws/src/vicon/vicon/launch/vicon.launch
 
 CMD /bin/bash
