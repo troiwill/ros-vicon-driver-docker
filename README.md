@@ -20,10 +20,10 @@ Your resulting compose file should have the following new lines:
 ... # Other lines
         vicon_server_ip: 192.168.1.132
 ... # Other lines
-      ROS_HOSTNAME: mymac
-      ROS_MASTER_URI: http://mymac:11311
+      ROS_HOSTNAME: mypc
+      ROS_MASTER_URI: http://mypc:11311
 ```
-if the IP address of your Vicon server is `192.168.1.132`, and the name of your computer is `mymac`.
+if the IP address of your Vicon server is `192.168.1.132`, and the name of your computer is `mypc`. If you are using a Mac computer, you may need to add `.local` to the end of your computer name (i.e., `mypc.local`).
 
 ### Building the Docker Image
 
