@@ -1,6 +1,8 @@
 # ROS Vicon Driver Docker
 
-## Building the DockerFile
+This tool publishes the pose of objects tracked with Vicon cameras. We wrapped a docker image around the ROS Vicon driver (which was developed by [Kumar Robotics](https://github.com/KumarRobotics/vicon)).
+
+## Building the Dockerfile
 Download Docker for your system. Use the command line to navigate to the `dockerfiles` folder. Then run the following command:
 ```
 docker build --network=host -t ros-vicon-driver .
