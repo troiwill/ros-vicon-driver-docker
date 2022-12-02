@@ -11,6 +11,7 @@ services:
     image: vicon-driver
     network_mode: "host"
     environment:
-      # Substitute "HOSTNAME" in both environment variable for the name of your computer.
-      ROS_HOSTNAME: HOSTNAME
-      ROS_MASTER_URI: http://HOSTNAME:11311
+      # Substitute "HOST_IP" in both environment variable for the name of your computer.
+      ROS_HOSTNAME: HOST_IP
+      ROS_MASTER_URI: http://HOST_IP:11311
+      ROS_IP: HOST_IP

@@ -12,18 +12,17 @@ First, ensure that you have the `docker` tool installed. You can find the tool a
 
 Once the repository is on your computer, edit the docker compose file: `docker-compose.yaml`. Specifically, you need to change two pieces of information:
 
-1. The `IP address` of the Vicon server. Change the IP address `127.0.0.1` in the line `vicon_server_ip: 127.0.0.1` to the IP address of the Vicon server.
-2. The `host name` of the computer that is running this docker. You can find your computer's host name by running `hostname` in your terminal on a Mac or Linux computer. Then substitute `HOSTNAME` in the compose file for the output of the command you ran.
+1. **The `IP address` of the Vicon server.** Change the IP address `127.0.0.1` in the line `vicon_server_ip: 127.0.0.1` to the IP address of the Vicon server. If the IP address of your Vicon server is `192.168.1.132`, the line with variable `vicon_server_ip` should look like:
+```
+vicon_server_ip: 192.168.1.132
+```
 
-Your resulting compose file should have the following new lines:
+2. **The `host IP` of the computer that is running this docker.** You can find your computer's host IP by running `ifconfig` in your terminal on a Mac or Linux computer. Then substitute `HOST_IP` in the compose file for the output of the command you ran. If the IP address of your host computer is `192.168.1.103`, the three relevant lines should look like:
 ```
-... # Other lines
-        vicon_server_ip: 192.168.1.132
-... # Other lines
-      ROS_HOSTNAME: mypc
-      ROS_MASTER_URI: http://mypc:11311
+ROS_HOSTNAME: 192.168.1.103
+ROS_MASTER_URI: http://192.168.1.103:11311
+ROS_IP: 192.168.1.103
 ```
-if the IP address of your Vicon server is `192.168.1.132`, and the name of your computer is `mypc`. If you are using a Mac computer, you may need to add `.local` to the end of your computer name (i.e., `mypc.local`).
 
 ### Building the Docker Image
 
@@ -47,18 +46,24 @@ docker compose up
 - **Terminal #2:** Run
 ```
 # This command will log into the docker container.
-docker exec -it <CONTAINER ID> /bin/bash
+docker exec -it $(docker ps | grep -Eo "^[a-z0-9]+") /bin/bash
+
+# OR, this line if you require sudo
+sudo docker exec -it $(sudo docker ps | grep -Eo "^[a-z0-9]+") /bin/bash
 
 # These commands will launch the vicon driver.
 source devel/setup.bash
 roslaunch vicon vicon.launch
 ```
-`CONTAINER ID` is the alphanumeric ID for the `vicon-driver-c` container. You can find this ID when you run `docker ps` (the ID will be in the first column).
+The `docker exec` command in either case is a shorthand for `docker exec -it <CONTAINER ID> /bin/bash`, where `CONTAINER ID` is the alphanumeric ID for the `vicon-driver-c` container. Running `docker ps` will give you the container ID.
 
 - **Remaining terminals:** In each, run
 ```
 # This command will log into the docker container.
-docker exec -it <CONTAINER ID> /bin/bash
+docker exec -it $(docker ps | grep -Eo "^[a-z0-9]+") /bin/bash
+
+# OR, this line if you require sudo
+sudo docker exec -it $(sudo docker ps | grep -Eo "^[a-z0-9]+") /bin/bash
 
 # These commands will launch the vicon driver.
 source devel/setup.bash
